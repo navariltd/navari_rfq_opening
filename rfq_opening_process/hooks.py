@@ -30,6 +30,9 @@ app_license = "GNU General Public License (v3)"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+    "ToDo": "public/js/todo.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -82,9 +85,9 @@ app_license = "GNU General Public License (v3)"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-#	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+	"Supplier Quotation": "rfq_opening_process.rfq_opening_process.doctype.supplier_quotation.supplier_quotation.get_permission_query_conditions",
+}
 #
 # has_permission = {
 #	"Event": "frappe.desk.doctype.event.event.has_permission",
@@ -139,9 +142,11 @@ app_license = "GNU General Public License (v3)"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-#	"frappe.desk.doctype.event.event.get_events": "rfq_opening_process.event.get_events"
-# }
+override_whitelisted_methods = {
+	# "frappe.desk.doctype.event.event.get_events": "rfq_opening_process.event.get_events",
+    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.send_supplier_emails": "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.send_supplier_emails_override",
+    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation": "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation_override"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -185,3 +190,4 @@ app_license = "GNU General Public License (v3)"
 # auth_hooks = [
 #	"rfq_opening_process.auth.validate"
 # ]
+
