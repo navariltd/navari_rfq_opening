@@ -1,6 +1,6 @@
 ## RFQ Opening Process
 
-Extensions for ERPNext Request for proposal and Supplier Quotation Opening Process.
+Extensions for ERPNext Request for Proposal and Supplier Quotation Opening Process.
 
 ### Installation
 
