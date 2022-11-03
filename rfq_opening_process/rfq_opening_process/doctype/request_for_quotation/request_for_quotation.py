@@ -53,7 +53,7 @@ def create_quote_or_bid_opening(rfq):
 
 #Navari-check whether to skip supplier quotations opening (rfq paramater in case, this is per rfq), for now it will be system wide
 def skip_supplier_quotation_opening_by_committee(rfq_name):
-	if cint(frappe.db.get_single_value("Buying Settings", "skip_supplier_quotation_opening_by_committee")):
+	if cint(frappe.db.get_single_value("RFQ Opening Settings", "skip_supplier_quotation_opening_by_committee")):
 		return True
 
 #Navari-count of received supplier quotations for each supplier and rfq
@@ -78,7 +78,7 @@ def count_of_received_supplier_quotations_for_supplier(supplier,rfq_name):
 
 #Navari-count of received supplier quotations for each supplier and rfq
 def allow_multiple_supplier_quotations_from_portal(supplier,rfq_name):
-	if cint(frappe.db.get_single_value("Buying Settings", "allow_multiple_supplier_quotations_from_portal")):
+	if cint(frappe.db.get_single_value("RFQ Opening Settings", "allow_multiple_supplier_quotations_from_portal")):
 		return True
 	elif count_of_received_supplier_quotations_for_supplier(supplier,rfq_name) > 0:
 		return False
