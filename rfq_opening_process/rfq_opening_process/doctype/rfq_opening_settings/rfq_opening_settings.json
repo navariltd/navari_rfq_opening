@@ -1,0 +1,62 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-03 12:27:03.384780",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "allow_multiple_supplier_quotations_from_portal",
+  "skip_supplier_quotation_opening_by_committee",
+  "ignore_default_buying_price_list_validation"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "allow_multiple_supplier_quotations_from_portal",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Allow Multiple Supplier Quotations from Portal",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "skip_supplier_quotation_opening_by_committee",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Skip Supplier Quotation Opening by Committee",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "ignore_default_buying_price_list_validation",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Ignore Default Buying Price List Validation",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-11-03 12:27:03.384780",
+ "modified_by": "Administrator",
+ "module": "RFQ Opening Process",
+ "name": "RFQ Opening Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
