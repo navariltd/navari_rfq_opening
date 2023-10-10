@@ -1,4 +1,10 @@
 from . import __version__ as app_version
+from erpnext.buying.doctype.request_for_quotation.request_for_quotation import (
+    RequestforQuotation,
+)
+from .rfq_opening_process.doctype.request_for_quotation.request_for_quotation import (
+    send_to_supplier,
+)
 
 app_name = "rfq_opening_process"
 app_title = "RFQ Opening Process"
@@ -45,7 +51,7 @@ doctype_js = {
 
 # website user home page (by Role)
 # role_home_page = {
-#	"Role": "home_page"
+# 	"Role": "home_page"
 # }
 
 # Generators
@@ -59,8 +65,8 @@ doctype_js = {
 
 # add methods and filters to jinja environment
 # jinja = {
-#	"methods": "rfq_opening_process.utils.jinja_methods",
-#	"filters": "rfq_opening_process.utils.jinja_filters"
+# 	"methods": "rfq_opening_process.utils.jinja_methods",
+# 	"filters": "rfq_opening_process.utils.jinja_filters"
 # }
 
 # Installation
@@ -86,11 +92,11 @@ doctype_js = {
 # Permissions evaluated in scripted ways
 
 permission_query_conditions = {
-	"Supplier Quotation": "rfq_opening_process.rfq_opening_process.doctype.supplier_quotation.supplier_quotation.get_permission_query_conditions",
+    "Supplier Quotation": "rfq_opening_process.rfq_opening_process.doctype.supplier_quotation.supplier_quotation.get_permission_query_conditions",
 }
 #
 # has_permission = {
-#	"Event": "frappe.desk.doctype.event.event.has_permission",
+# 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
 # DocType Class
@@ -98,7 +104,7 @@ permission_query_conditions = {
 # Override standard doctype classes
 
 # override_doctype_class = {
-#	"ToDo": "custom_app.overrides.CustomToDo"
+# 	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
 # Document Events
@@ -106,32 +112,32 @@ permission_query_conditions = {
 # Hook on document methods and events
 
 # doc_events = {
-#	"*": {
-#		"on_update": "method",
-#		"on_cancel": "method",
-#		"on_trash": "method"
-#	}
+# 	"*": {
+# 		"on_update": "method",
+# 		"on_cancel": "method",
+# 		"on_trash": "method"
+# 	}
 # }
 
 # Scheduled Tasks
 # ---------------
 
 # scheduler_events = {
-#	"all": [
-#		"rfq_opening_process.tasks.all"
-#	],
-#	"daily": [
-#		"rfq_opening_process.tasks.daily"
-#	],
-#	"hourly": [
-#		"rfq_opening_process.tasks.hourly"
-#	],
-#	"weekly": [
-#		"rfq_opening_process.tasks.weekly"
-#	],
-#	"monthly": [
-#		"rfq_opening_process.tasks.monthly"
-#	],
+# 	"all": [
+# 		"rfq_opening_process.tasks.all"
+# 	],
+# 	"daily": [
+# 		"rfq_opening_process.tasks.daily"
+# 	],
+# 	"hourly": [
+# 		"rfq_opening_process.tasks.hourly"
+# 	],
+# 	"weekly": [
+# 		"rfq_opening_process.tasks.weekly"
+# 	],
+# 	"monthly": [
+# 		"rfq_opening_process.tasks.monthly"
+# 	],
 # }
 
 # Testing
@@ -143,16 +149,15 @@ permission_query_conditions = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	# "frappe.desk.doctype.event.event.get_events": "rfq_opening_process.event.get_events",
-    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.send_supplier_emails": "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.send_supplier_emails_override",
-    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation": "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation_override"
+    # "frappe.desk.doctype.event.event.get_events": "rfq_opening_process.event.get_events",
+    "erpnext.buying.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation": "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.create_supplier_quotation_override",
 }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
-#	"Task": "rfq_opening_process.task.get_dashboard_data"
+# 	"Task": "rfq_opening_process.task.get_dashboard_data"
 # }
 
 # exempt linked doctypes from being automatically cancelled
@@ -164,30 +169,31 @@ override_whitelisted_methods = {
 # --------------------
 
 # user_data_fields = [
-#	{
-#		"doctype": "{doctype_1}",
-#		"filter_by": "{filter_by}",
-#		"redact_fields": ["{field_1}", "{field_2}"],
-#		"partial": 1,
-#	},
-#	{
-#		"doctype": "{doctype_2}",
-#		"filter_by": "{filter_by}",
-#		"partial": 1,
-#	},
-#	{
-#		"doctype": "{doctype_3}",
-#		"strict": False,
-#	},
-#	{
-#		"doctype": "{doctype_4}"
-#	}
+# 	{
+# 		"doctype": "{doctype_1}",
+# 		"filter_by": "{filter_by}",
+# 		"redact_fields": ["{field_1}", "{field_2}"],
+# 		"partial": 1,
+# 	},
+# 	{
+# 		"doctype": "{doctype_2}",
+# 		"filter_by": "{filter_by}",
+# 		"partial": 1,
+# 	},
+# 	{
+# 		"doctype": "{doctype_3}",
+# 		"strict": False,
+# 	},
+# 	{
+# 		"doctype": "{doctype_4}"
+# 	}
 # ]
+
+RequestforQuotation.send_to_supplier = send_to_supplier
 
 # Authentication and authorization
 # --------------------------------
 
 # auth_hooks = [
-#	"rfq_opening_process.auth.validate"
+# 	"rfq_opening_process.auth.validate"
 # ]
-
