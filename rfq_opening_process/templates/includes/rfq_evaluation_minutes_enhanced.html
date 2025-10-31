@@ -94,44 +94,116 @@
       the table below:-
     </p>
 
-    <!-- TODO: Add evaluation grade table prepopulated with Company names here! -->
+		<p><strong>Evaluation Grade Table:</strong></p>
+
+    {% if supplier_quotations %}
     <table
       class="table table-bordered"
-      style="table-layout: fixed; width: 100%"
+      style="width: 100%; border-collapse: collapse; margin-top: 15px"
     >
       <thead>
-        <tr>
-          <th style="white-space: normal; word-wrap: break-word">Company</th>
-          <th style="white-space: normal">
+        <tr style="background-color: #f8f9fa">
+          <th
+            style="
+              border: 1px solid black;
+              padding: 2px;
+              text-align: center;
+              width: 10px;
+            "
+          >
+            No
+          </th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: left;
+              width: 25%;
+            "
+          >
+					<br />
+            Company Name
+          </th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+              width: 15%;
+            "
+          >
+						<br />
             Presentation of the document (Score - 10)
           </th>
-          <th style="white-space: normal">Previous Experience (Score - 20)</th>
-          <th style="white-space: normal">Key Technical Staff (Score - 20)</th>
-          <th style="white-space: normal">Equipment (Score - 20)</th>
-          <th style="white-space: normal">Financial Proposal (Score - 30)</th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+              width: 15%;
+            "
+          >
+						<br />
+            Previous experience (Score - 20)
+          </th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+              width: 15%;
+            "
+          >
+						<br />
+            Key technical staff (Score - 20)
+          </th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+              width: 15%;
+            "
+          >
+						<br />
+            Equipment (Score - 20)
+          </th>
+          <th
+            style="
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+              width: 15%;
+            "
+          >
+						<br />
+            Financial proposal (Score - 30)
+          </th>
         </tr>
       </thead>
       <tbody>
-        {% if supplier_quotations %} {% for quotation in supplier_quotations %}
+        {% for quotation in supplier_quotations %}
         <tr>
-          <td>{{ quotation.supplier_name }}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        {% endfor %} {% else %}
-        <tr>
-          <td colspan="6" class="text-center">
-            No supplier quotations submitted.
+          <td style="border: 1px solid black; padding: 8px; text-align: center">
+            {{ loop.index }}.
           </td>
+          <td style="border: 1px solid black; padding: 8px; font-weight: bold">
+            {{ quotation.supplier_name }}
+          </td>
+
+          <td style="border: 1px solid black; padding: 8px"></td>
+          <td style="border: 1px solid black; padding: 8px"></td>
+          <td style="border: 1px solid black; padding: 8px"></td>
+          <td style="border: 1px solid black; padding: 8px"></td>
+          <td style="border: 1px solid black; padding: 8px"></td>
         </tr>
-        {% endif %}
+        {% endfor %}
       </tbody>
     </table>
+    {% endif %}
   </div>
-  <div>
+
+  <div style="margin-top: 30px">
     <h3>8. RECOMMENDATION</h3>
     <p>
       Pursuant to Section 80(4) of the public procurement and asset disposal act
