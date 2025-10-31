@@ -80,8 +80,6 @@ def get_purchase_intent_note(rfq):
 @frappe.whitelist()
 def generate_template(quotation, committee, note_type, date, evaluation_committee=None):
     supplier_quotations = get_supplier_quotations(quotation)
-    
-    print(f"Supplier Quotations: {supplier_quotations}")
 
     rfq_doc = frappe.get_doc("Request for Quotation", quotation)
     committee_members = (
