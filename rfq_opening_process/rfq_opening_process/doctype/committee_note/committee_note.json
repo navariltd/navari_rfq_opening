@@ -50,7 +50,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Note Type",
-   "options": "\nCommittee Register\nEvaluation Minutes\nOpening Minutes",
+   "options": "\nCommittee Register\nEvaluation Minutes\nEvaluation Minutes Enhanced\nOpening Minutes",
    "reqd": 1
   },
   {
