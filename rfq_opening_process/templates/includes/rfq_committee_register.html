@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       {% for idx, member in enumerate(committee_members) %}
-      {% set user_signature = frappe.db.get_value("User", {"name": member.user_id }, ["signature"]) %}
+      {% set user_signature = frappe.db.get_value("User Signature", {"name": member.user_id }, ["signature"]) %}
       <tr>
         <td>{{ idx + 1 }}</td>
         <td style="width: 30%">{{ member.get("full_name") }}</td>

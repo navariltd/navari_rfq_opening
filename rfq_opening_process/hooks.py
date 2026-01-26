@@ -39,6 +39,7 @@ required_apps = ["frappe/erpnext"]
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
     "ToDo": "public/js/todo.js",
+    "Request for Quotation": "public/js/request_for_quotation.js",
 }
 
 doctype_list_js = {
