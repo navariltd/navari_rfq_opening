@@ -1,0 +1,61 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"ZFvbj7i8re\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">RFQ Opening</span>\",\"col\":12}},{\"id\":\"YjBT3jZ-D2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RFQ Opening Settings\",\"col\":3}},{\"id\":\"6ZhBYAR-YH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"User Signature\",\"col\":3}},{\"id\":\"Uyd3FVIpx5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Committee\",\"col\":3}},{\"id\":\"Hd-Mo5QY9s\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Committee Note\",\"col\":3}}]",
+ "creation": "2026-06-10 10:19:25.050279",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "money-coins-1",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "RFQ Opening",
+ "links": [],
+ "modified": "2026-06-10 10:25:22.693694",
+ "modified_by": "Administrator",
+ "module": "RFQ Opening Process",
+ "name": "RFQ Opening",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 28.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "RFQ Opening Settings",
+   "link_to": "RFQ Opening Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "User Signature",
+   "link_to": "User Signature",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Committee",
+   "link_to": "Committee",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Committee Note",
+   "link_to": "Committee Note",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "RFQ Opening"
+}
