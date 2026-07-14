@@ -1,3 +1,27 @@
+<style>
+		signatures-table {
+			border-collapse: separate;
+			border-spacing: 0;
+			overflow: hidden;
+      width: 100%;
+		}
+		.text-center {
+			text-align: center;
+		}
+		.text-left {
+			text-align: left;
+		}
+		.text-right {
+			text-align: right;
+		}
+		.text-dark {
+			color: #525252;
+		}
+    .text-bold {
+      font-weight: bold;
+    }
+</style>
+
 <div>
   <div>
     <div style="width: 100%" class="text-center">
@@ -68,32 +92,31 @@
     <p>Pursuant to Section 80(4) of the public procurement and asset disposal act 2015, the Evaluation Committee thus recommends the award to M/S Longrock Tours and travel Ltd being the lowest bidder as highlighted in the table above.</p>
 
     {% if evaluation_committee %}
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>S/No.</th>
-        <th>Name</th>
-        <th>Signature</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for idx, member in enumerate(evaluation_committee) %}
-      {% set user_signature = frappe.db.get_value("User Signature", {"name": member.user_id }, ["signature"]) %}
-      <tr>
-        <td>{{ idx + 1 }}</td>
-        <td style="width: 30%">{{ member.get("full_name") }}</td>
-        {% if user_signature%}
-          <td style="width: 30%"><img width="100" height="25" src="{{ user_signature }}" /></td>
-        {% else %}
-          <td style="width: 30%"></td>
-        {% endif %}
-        <td style="width: 30%">{{ opening_date }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
+      <table class="table table-bordered table-striped">
+        <thead style="background-color: #f0efef">
+          <tr>
+            <td class="text-center text-bold">{{ _("No") }}</td>
+            <td class="text-left text-bold">{{ _("Name") }}</td>
+            <td class="text-center text-bold">{{ _("Signature") }}</td>
+            <td class="text-right text-bold">{{ _("Date") }}</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in evaluation_committee %}
+          {% set user_signature = frappe.db.get_value("User Signature", {"name": member.user_id }, ["signature"]) %}
+          <tr>
+            <td class="text-center text-dark">{{ loop.index }}</td>
+            <td>{{ member.get("full_name") }}</td>
+            {% if user_signature%}
+            <td class="text-center" style="width: 30%"><img width="100" height="25" src="{{ user_signature }}" /></td>
+          {% else %}
+            <td style="width: 30%"></td>
+          {% endif %}
+            <td class="text-right text-dark">{{ opening_date }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
   {% endif %}
   </div>
 </div>
