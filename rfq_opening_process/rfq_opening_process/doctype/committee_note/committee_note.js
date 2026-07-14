@@ -9,6 +9,12 @@ frappe.ui.form.on("Committee Note", {
   evaluation_committee(frm) {
     frm.trigger("generateContent");
   },
+  quotation(frm) {
+    if (!frm.doc.quotation) {
+      frm.set_value("generated_content", null);
+    }
+    frm.trigger("generateContent");
+  },
 
   generateContent(frm) {
     if (frm.doc.quotation && frm.doc.note_type) {
