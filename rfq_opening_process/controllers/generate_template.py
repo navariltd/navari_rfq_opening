@@ -143,6 +143,14 @@ def generate_template(quotation, committee, note_type, date, evaluation_committe
         rendered_content = frappe.render_template(
             f"{template_path}/rfq_evaluation_minutes.html", context=context
         )
+    elif note_type == "Evaluation Minutes Enhanced":
+        pi_notes, pi_title = get_purchase_intent_note(quotation)
+        context["pi_note"] = pi_notes[0]
+        context["pi_title"] = pi_title if pi_title else None
+
+        rendered_content = frappe.render_template(
+            f"{template_path}/rfq_evaluation_minutes_enhanced.html", context=context
+        )
     else:
         _, pi_title = get_purchase_intent_note(quotation)
         context["pi_title"] = pi_title if pi_title else None
