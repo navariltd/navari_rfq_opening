@@ -274,8 +274,10 @@ def create_supplier_quotation_override(doc):
         sq_doc.save()
         frappe.msgprint(_("Supplier Quotation {0} created").format(sq_doc.name))
         return sq_doc.name
-    except Exception:
-        return None
+    except Exception as e:
+        title = _("Error creating Supplier Quotation")
+        frappe.log_error(title=title, message=str(e))
+        frappe.throw(_("Failed to Create Supplier Quotation. Check error logs"))
 
 
 @frappe.whitelist()
