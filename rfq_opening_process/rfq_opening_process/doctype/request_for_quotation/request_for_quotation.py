@@ -249,22 +249,22 @@ def create_supplier_quotation_override(doc):
                 )
             )
             # End Navari
+        supplier = doc.get("supplier")
+        rfq = get_quotable_rfq(doc.get("name"), supplier)
 
         sq_doc = frappe.get_doc(
             {
                 "doctype": "Supplier Quotation",
-                "supplier": doc.get("supplier"),
+                "supplier": supplier,
                 "terms": doc.get("terms"),
                 "company": doc.get("company"),
                 "currency": doc.get("currency")
-                or get_party_account_currency(
-                    "Supplier", doc.get("supplier"), doc.get("company")
-                ),
+                or get_party_account_currency("Supplier", supplier, doc.get("company")),
                 "buying_price_list": doc.get("buying_price_list")
                 or frappe.db.get_value("Buying Settings", None, "buying_price_list"),
             }
         )
-        request_for_quotation.add_items(sq_doc, doc.get("supplier"), doc.get("items"))
+        request_for_quotation.add_items(sq_doc, supplier, rfq, doc.get("items"))
         sq_doc.flags.ignore_permissions = True
         sq_doc.run_method("set_missing_values")
         # Navari set submission status to pending
@@ -274,8 +274,19 @@ def create_supplier_quotation_override(doc):
         sq_doc.save()
         frappe.msgprint(_("Supplier Quotation {0} created").format(sq_doc.name))
         return sq_doc.name
-    except Exception:
-        return None
+    except Exception as e:
+        title = _("Error creating Supplier Quotation")
+        frappe.log_error(title=title, message=str(e))
+        frappe.throw(_("Failed to Create Supplier Quotation. Check error logs"))
+
+
+def get_quotable_rfq(rfq_name, supplier):
+    """Return the submitted Request for Quotation `supplier` was invited to quote on."""
+    rfq = frappe.get_doc("Request for Quotation", rfq_name)
+    if rfq.docstatus != 1 or supplier not in {row.supplier for row in rfq.suppliers}:
+        frappe.throw(_("Not Permitted"), frappe.PermissionError)
+
+    return rfq
 
 
 @frappe.whitelist()
