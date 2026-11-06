@@ -227,6 +227,15 @@ def create_supplier_quotation_override(doc):
     if isinstance(doc, str):
         doc = json.loads(doc)
 
+    supplier = doc.get("supplier")
+
+    if frappe.session.user not in frappe.get_all(
+        "Portal User", {"parenttype": "Supplier", "parent": supplier}, pluck="user"
+    ):
+        frappe.throw(_("Not Permitted"), frappe.PermissionError)
+
+    rfq = get_quotable_rfq(doc.get("name"), supplier)
+
     try:
         # Navari (check for multiple sqs && closing date and time)
         if not allow_multiple_supplier_quotations_from_portal(
@@ -239,7 +248,9 @@ def create_supplier_quotation_override(doc):
                     )
                 )
             )
-        closing_datetime = "%s %s" % (doc.get("closing_date"), doc.get("closing_time"))
+
+        closing_datetime = f"{rfq.closing_date} {rfq.closing_time}"
+
         if get_datetime() > get_datetime(closing_datetime):
             frappe.throw(
                 _(
@@ -250,20 +261,20 @@ def create_supplier_quotation_override(doc):
             )
             # End Navari
         supplier = doc.get("supplier")
-        rfq = get_quotable_rfq(doc.get("name"), supplier)
 
         sq_doc = frappe.get_doc(
             {
                 "doctype": "Supplier Quotation",
                 "supplier": supplier,
                 "terms": doc.get("terms"),
-                "company": doc.get("company"),
+                "company": rfq.company,
                 "currency": doc.get("currency")
                 or get_party_account_currency("Supplier", supplier, doc.get("company")),
                 "buying_price_list": doc.get("buying_price_list")
                 or frappe.db.get_value("Buying Settings", None, "buying_price_list"),
             }
         )
+
         request_for_quotation.add_items(sq_doc, supplier, rfq, doc.get("items"))
         sq_doc.flags.ignore_permissions = True
         sq_doc.run_method("set_missing_values")
