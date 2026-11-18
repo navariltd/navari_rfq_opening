@@ -14,7 +14,7 @@ frappe.ui.form.on("ToDo", {
         frappe.set_route(
           "Form",
           frm.doc.reference_type,
-          frm.doc.reference_name
+          frm.doc.reference_name,
         );
       });
     }
@@ -33,7 +33,7 @@ frappe.ui.form.on("ToDo", {
               });
             },
             "fa fa-check",
-            "btn-success"
+            "btn-success",
           );
         } else {
           frm.add_custom_button(
@@ -43,7 +43,7 @@ frappe.ui.form.on("ToDo", {
               frm.save();
             },
             null,
-            "btn-default"
+            "btn-default",
           );
         }
         frm.add_custom_button(
@@ -52,21 +52,41 @@ frappe.ui.form.on("ToDo", {
             frappe.new_doc("ToDo");
           },
           null,
-          "btn-default"
+          "btn-default",
         );
         //Navari for RFQs
       } else {
         if (frm.doc.status !== "Closed") {
           frm.add_custom_button(
             __("Open Quotes"),
-            function () {
-              let currentDateTime = new Date();
-              let rfqOpeningDateTime = new parseDateTime(
-                frm.doc.date,
-                frm.doc.due_time
+            async function () {
+              // ToDo has no time field, so read the opening date/time from the RFQ itself
+              const { message: rfq } = await frappe.db.get_value(
+                "Request for Quotation",
+                frm.doc.reference_name,
+                ["closing_date", "closing_time"],
               );
+
+              if (!rfq || !rfq.closing_date || !rfq.closing_time) {
+                frappe.msgprint(
+                  __(
+                    "Closing Date and Closing Time must be set on Request for Quotation {0} before quotes can be opened.",
+                    [frm.doc.reference_name],
+                  ),
+                );
+                return;
+              }
+
+              // Compare in the system timezone, same as the server-side check
+              const currentDateTime = frappe.datetime.str_to_obj(
+                frappe.datetime.now_datetime(),
+              );
+              const rfqOpeningDateTime = parseDateTime(
+                rfq.closing_date,
+                rfq.closing_time,
+              );
+
               if (rfqOpeningDateTime <= currentDateTime) {
-                //Call Open Quotes
                 frappe.call({
                   method:
                     "rfq_opening_process.rfq_opening_process.doctype.request_for_quotation.request_for_quotation.open_supplier_quotations",
@@ -74,22 +94,24 @@ frappe.ui.form.on("ToDo", {
                   args: {
                     rfq_name: frm.doc.reference_name,
                   },
-                });
-                frm.set_value("status", "Closed");
-                frm.save(null, function () {
-                  // back to list
-                  frappe.set_route("List", "ToDo");
+                  callback: function () {
+                    // Only close the ToDo once the opening call has succeeded
+                    frm.set_value("status", "Closed");
+                    frm.save(null, function () {
+                      frappe.set_route("List", "ToDo");
+                    });
+                  },
                 });
               } else {
-                msgprint(
+                frappe.msgprint(
                   __(
-                    `Quote or Bid opening is only allowed on or after the Due Date and Time`
-                  )
+                    "Quote or Bid opening is only allowed on or after the Due Date and Time",
+                  ),
                 );
               }
             },
             "fa fa-check",
-            "btn-success"
+            "btn-success",
           );
         }
       }
@@ -109,7 +131,7 @@ function parseDateTime(dateString, timeString) {
   // Extract hours, minutes, and seconds
   const hours = parseInt(timeParts[0]);
   const minutes = parseInt(timeParts[1]);
-  const seconds = parseInt(timeParts[2]);
+  const seconds = parseInt(timeParts[2] || 0);
 
   return new Date(year, month, day, hours, minutes, seconds);
 }
