@@ -302,9 +302,12 @@ def get_quotable_rfq(rfq_name, supplier):
 
 @frappe.whitelist()
 def open_supplier_quotations(rfq_name):
-    # TODO Validate date and time, move to client side
-    if not check_rfq_opening_date_and_time:
-        frappe.throw(_("Due Date and Time {0} is not yet"))
+    if not check_rfq_opening_date_and_time(rfq_name):
+        frappe.throw(
+            _(
+                "Quote or Bid opening for {0} is only allowed on or after its Closing Date and Time"
+            ).format(rfq_name)
+        )
     received_sqs_for_rfq = count_of_received_supplier_quotations_for_rfq(rfq_name)
     minimum_expected_quotes_for_rfq = get_minimum_expected_quotes_for_rfq(rfq_name)
     opened_quote_or_bid_todos = count_of_opened_quote_or_bid_todos(rfq_name)
